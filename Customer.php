@@ -5,14 +5,13 @@
  */
 class Customer extends AbstractBase
 {
-
 	/**
-	 * Customer's username
+	 * Customer's e-mail address; doubles as the Customer's "username".
 	 *
 	 * @var string
 	 */
-	protected $_username;
-
+	protected $_email;
+	
 	/**
 	 * Customer's password
 	 *
@@ -35,38 +34,58 @@ class Customer extends AbstractBase
 	protected $_lastName;
 
 	/**
-	 * Customer's e-mail address
-	 *
-	 * @var string
-	 */
-	protected $_email;
-
-	/**
 	 * The customer's address. Consists of an Address object.
 	 * 
 	 * @var Address
 	 */
 	protected $_addr;
 	
-	public function __construct($user, $pass, $firstName, $lastName, $email)
+	public function __construct($pass, $firstName, $lastName, $email)
 	{
-		$this->_username = $user;
+		$this->_email = $email;
 		$this->_password = $pass;
 		$this->_firstName = $firstName;
 		$this->_lastName = $lastName;
+	}
+
+	/**
+	 * Updates a Customer's e-mail address/login.
+	 * 
+	 * @param string $email
+	 */
+	function setEmail($email)
+	{
 		$this->_email = $email;
 	}
 	
-	// Setters for properties?
-	
 	/**
-	 * Returns the customer's username.
-	 * 
+	 * Returns the customer's E-mail Address
+	 *
 	 * @return string
 	 */
-	function getUsername()
+	function getEmail()
 	{
-		return $this->_username;
+		return $this->_email;
+	}
+	
+	/**
+	 * Updates a Customer's password.
+	 * 
+	 * @param string $pass
+	 */
+	function setPassword($pass)
+	{
+		$this->_password = $pass;
+	}
+	
+	/**
+	 * Updates a Customer's first name.
+	 * 
+	 * @param unknown $firstName
+	 */
+	function setFirstName($firstName)
+	{
+		$this->_firstName = $firstName;
 	}
 	
 	/**
@@ -80,6 +99,16 @@ class Customer extends AbstractBase
 	}
 	
 	/**
+	 * Updates a Customer's last name.
+	 * 
+	 * @param string $lastName
+	 */
+	function setLastName($lastName)
+	{
+		$this->_lastName = $lastName;
+	}
+	
+	/**
 	 * Returns the customer's last name
 	 * 
 	 * @return string
@@ -87,16 +116,6 @@ class Customer extends AbstractBase
 	function getLastName()
 	{
 		return $this->_lastName;
-	}
-
-	/**
-	 * Returns the customer's E-mail Address
-	 * 
-	 * @return string
-	 */
-	function getEmail()
-	{
-		return $this->_email;
 	}
 	
 	/**
