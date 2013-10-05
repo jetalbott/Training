@@ -33,7 +33,7 @@ class Category extends AbstractBase
 	 * 
 	 * @param string $name
 	 */
-	public function __construct($name = "", $description = "")
+	public function __construct($name, $description = NULL)
 	{
 		$this->_name = $name;
 		$this->_description = $description;
