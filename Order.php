@@ -22,156 +22,59 @@ class Order extends AbstractBase
 	protected $_cart = array();
 	
 	/**
-	 * The date that the order is created.
+	 * The date that the order is placed.
 	 * 
 	 * @var string
 	 */
-	protected $_createdDate;
-
-	/**
-	 * The date that the order is deleted before being receieved, if this occurs.
-	 * 
-	 * @var string
-	 */
-	protected $_deletedDate;
-	
-	/**
-	 * The time of the last modification to this Order.
-	 * 
-	 * @var string
-	 */
-	protected $_modifiedDate;
-
-	/**
-	 * The date that the Order is received for processing.
-	 * 
-	 * @var string
-	 */
-	protected $_receivedDate;
+	protected $_placeDate;
 
 	/**
 	 * The date that the order ships to the customer.
 	 * 
 	 * @var string
 	 */
-	protected $_shippedDate;
+	protected $_shipDate;
 	
 	/**
-	 * The date that the received order is cancelled, if this occurs.
+	 * The date that the placed order is cancelled, if this occurs.
 	 * 
 	 * @var string
 	 */
-	protected $_cancelledDate;
+	protected $_cancelDate;
 
 	/**
 	 * On Order creation the Customer will be saved to the new object; The Customer object also contains any necessary Address data for the order.
 	 * 
 	 * @param Customer $customer
 	 */
-	public function __construct(Customer &$customer,$createdDate)
+	public function __construct(Customer &$customer)
 	{
 		$this->_customer = &$customer;
-		$this->_createdDate = $createdDate;
 	}
 	
 	/**
-	 * Gets the record for the date of the Order creation.
+	 * Sets the record for the date of the Order placement.
 	 * 
-	 * @return string
+	 * @param string $placeDate
 	 */
-	function getCreatedDate()
+	function setPlaceDate($placeDate)
 	{
-		return $this->_createdDate;
-	}
-	
-	/**
-	 * Sets the record for the Order's deletion before it is received, if this occurs.
-	 * 
-	 * @param string $deletedDate
-	 */
-	function setDeletedDate($deletedDate)
-	{
-		$this->_deletedDate = $deletedDate;
-	}
-	
-	/**
-	 * Sets the record for the time of the last modification to the Order.
-	 * 
-	 * @param string $modifiedDate
-	 */
-	function setModifiedDate($modifiedDate)
-	{
-		$this->_modifiedDate = $modifiedDate;
-	}
-	
-	/**
-	 * Returns the time of the last modification to the Order.
-	 * 
-	 * @return string
-	 */
-	function getModifiedDate()
-	{
-		return $this->_modifiedDate;
-	}
-	
-	/**
-	 * Sets the date that the Order is receieved for processing.
-	 * 
-	 * @param string $receivedDate
-	 */
-	function setReceivedDate($receivedDate)
-	{
-		$this->_receivedDate = $receivedDate;
-	}
-	
-	/**
-	 * Returns the date that the Order was received for processing.
-	 * 
-	 * @return string
-	 */
-	function getReceivedDate()
-	{
-		return $this->_receivedDate;
+		$this->_placeDate = $placeDate;
 	}
 	
 	/**
 	 * Sets the record for the date the Order shipped.
 	 * 
-	 * @param string $shippedDate
+	 * @param string $shipDate
 	 */
-	function setShippedDate($shippedDate)
+	function setShipDate($shipDate)
 	{
-		$this->_shippedDate = $shippedDate;
+		$this->_shipDate = $shipDate;
 	}
 	
-	/**
-	 * Returns the recorded shipment date for the Order.
-	 * 
-	 * @return string
-	 */
-	function getShippedDate()
+	function setCancelDate($cancelDate)
 	{
-		return $this->_shippedDate;
-	}
-	
-	/**
-	 * Sets the record for the date of Order cancellation, if it occurs.
-	 * 
-	 * @param string $cancelledDate
-	 */
-	function setCancelledDate($cancelledDate)
-	{
-		$this->_cancelledDate = $cancelledDate;
-	}
-	
-	/**
-	 * Returns the recorded cancellation date, if this occured.
-	 * 
-	 * @return string
-	 */
-	function getCancelledDate()
-	{
-		return $this->_cancelledDate;
+		$this->_cancelDate = $cancelDate;
 	}
 	
 	/**
