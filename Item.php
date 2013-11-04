@@ -6,6 +6,22 @@
 class Item extends AbstractBase
 {
 	
+	protected static $_tableName = 'item';
+	
+	/**
+	 * The ID of the order this Item belongs to.
+	 * 
+	 * @var int
+	 */
+	protected $_orderId;
+	
+	/**
+	 * The ID of the product this Item is instanced from.
+	 * 
+	 * @var int
+	 */
+	protected $_productId;
+	
 	/**
 	 * The Product object that this Item is based on.
 	 * 
@@ -32,11 +48,17 @@ class Item extends AbstractBase
 	 * 
 	 * @param Product $product, int $quantity, float $price 
 	 */
-	public function __construct(Product &$product, $quantity, $price = NULL)
+	public function __construct(array $data)
 	{
-		$this->_product &= $product;
-		$this->_quantity = $quantity;
-		$this->_price = ($price == NULL) ? $product->getPrice() : $price; 
+		if (empty($data['id']) || empty($data['product_id']) || empty($data['order_id']) || empty($data['price']) || empty($data['quantity']))
+		{	
+			throw new InvalidArgumentException('A required field is empty.');
+		}
+		$this->_id = $data['id'];	
+		$this->_productId = $data['product_id'];
+		$this->_orderId = $data['order_id'];
+		$this->_price = $data['price'];
+		$this->_quantity = $data['quantity']; 
 	}
 	
 	/**

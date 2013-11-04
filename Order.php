@@ -7,6 +7,15 @@
 class Order extends AbstractBase
 {
 	
+	protected static $_tableName = 'order';
+	
+	/**
+	 * The Customer ID owning the Order.
+	 * 
+	 * @var int
+	 */
+	protected $_customerId;
+	
 	/**
 	 * The Customer object placing the Order.
 	 * 
@@ -68,10 +77,35 @@ class Order extends AbstractBase
 	 * 
 	 * @param Customer $customer
 	 */
-	public function __construct(Customer &$customer,$createdDate)
+	public function __construct(array $data)
 	{
-		$this->_customer = &$customer;
-		$this->_createdDate = $createdDate;
+		if (empty($data['id']) || empty($data['customer_id']) || empty($data['created_date']))
+		{	
+			throw new InvalidArgumentException('A required field is empty.');
+		}
+		$this->_id = $data['id'];	
+		$this->_customerId = $data['customer_id'];
+		$this->_createdDate = $data['created_date'];
+		if (!empty($data['deleted_date']))
+		{
+			$this->_deletedDate = $data['deleted_date'];
+		}
+		if (!empty($data['modified_date']))
+		{
+			$this->_modifiedDate = $data['modified_date'];
+		}
+		if (!empty($data['received_date']))
+		{
+			$this->_receivedDate = $data['received_date'];
+		}
+		if (!empty($data['shipped_date']))
+		{
+			$this->_shippedDate = $data['shipped_date'];
+		}
+		if (!empty($data['cancelled_date']))
+		{
+			$this->_cancelledDate = $data['cancelled_date'];
+		}
 	}
 	
 	/**

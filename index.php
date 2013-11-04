@@ -2,15 +2,12 @@
 
 require "DatabaseConnection.php";
 
-$rows = DatabaseConnection::select("customer");
+$where = array('id' => 2);
 
-foreach ($rows as $row)
-{
-	echo "ID = " . $row["id"] . "<br />";
-	echo "E-mail = " . $row["email"] . "<br />";
-	echo "Password = " . $row["password"] . "<br />";
-	echo "First Name = " . $row["first_name"] . "<br />";
-	echo "Last Name = " . $row["last_name"] . "<br />";
-}
+$insert = array('email' => 'jsuter@gmail.com','password' => 'chespin','first_name' => 'Jordan','last_name' => 'Suter');
+
+$rows = DatabaseConnection::insert("customer", $insert);
+
+echo $rows
 
 ?>

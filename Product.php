@@ -7,13 +7,22 @@
 class Product extends AbstractBase
 {
 
+	protected static $_tableName = 'product';
+
 	/**
 	 * The Product's name.
 	 *
 	 * @var string
 	 */
 	protected $_name;
-
+	
+	/**
+	 * The ID of the Category that the Product belongs to.
+	 * 
+	 * @var int
+	 */
+	protected $_categoryId;
+	
 	/**
 	 * The Category object that the Product belongs to.
 	 *
@@ -42,12 +51,17 @@ class Product extends AbstractBase
 	 * @param string $name
 	 * @param float $price
 	 */
-	public function __construct(Category &$category,$name,$price,$description = "")
+	public function __construct(array $data)
 	{
-		$this->_category &= $category;
-		$this->_name = $name;
-		$this->_price = $price;
-		$this->_description = $description;
+		if (empty($data['id']) || empty($data['category_id']) || empty($data['name']) || empty($data['price']) || empty($data['description']))
+		{	
+			throw new InvalidArgumentException('A required field is empty.');
+		}
+		$this->_id = $data['id'];	
+		$this->_categoryId = $data['category_id'];
+		$this->_name = $data['name'];
+		$this->_price = $data['price'];
+		$this->_description = $data['description'];
 	}
 
 	/**

@@ -5,14 +5,23 @@
  */
 class Category extends AbstractBase
 {
-
+	
+	protected static $_tableName = 'category';
+	
 	/**
 	 * The parent Category, if it exists.
 	 *
 	 * @var Category
 	 */
 	protected $_parent;
-
+	
+	/**
+	 * The ID of the parent Category
+	 * 
+	 * @var int
+	 */
+	protected $_parentId;
+	
 	/**
 	 * The name of the Category.
 	 *
@@ -33,10 +42,22 @@ class Category extends AbstractBase
 	 * 
 	 * @param string $name
 	 */
-	public function __construct($name, $description = NULL)
+	protected function __construct(array $data)
 	{
-		$this->_name = $name;
-		$this->_description = $description;
+		if (empty($data['id']) || empty($data['name']))
+		{
+			throw new InvalidArgumentException('A required field is empty.');
+		}
+		$this->_id = $data['id'];
+		$this->_name = $data['name'];
+		if (!empty($data['parent_id']))
+		{
+			$this->_parentId = $data['parent_id'];
+		}
+		if (!empty($data['decription']))
+		{
+			$this->_description = $data['description'];
+		}
 	}
 	
 	/**

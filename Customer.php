@@ -5,6 +5,9 @@
  */
 class Customer extends AbstractBase
 {
+	
+	protected static $_tableName = 'customer';
+	
 	/**
 	 * Customer's e-mail address; doubles as the Customer's "username".
 	 *
@@ -40,12 +43,17 @@ class Customer extends AbstractBase
 	 */
 	protected $_addr;
 	
-	public function __construct($pass, $firstName, $lastName, $email)
+	protected function __construct(array $data)
 	{
-		$this->_email = $email;
-		$this->_password = $pass;
-		$this->_firstName = $firstName;
-		$this->_lastName = $lastName;
+		if (empty($data['id']) || empty($data['email']) || empty($data['password']) || empty($data['first_name']) || empty($data['last_name']))
+		{	
+			throw new InvalidArgumentException('A required field is empty.');
+		}
+		$this->_id = $data['id'];	
+		$this->_email = $data['email'];
+		$this->_password = $data['password'];
+		$this->_firstName = $data['first_name'];
+		$this->_lastName = $data['last_name'];
 	}
 
 	/**

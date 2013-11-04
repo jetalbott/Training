@@ -4,7 +4,16 @@
  * Contains address information for customers stored by ID.
  */
 class Address extends AbstractBase
-{	
+{
+	protected static $_tableName = 'address';
+	
+	/**
+	 * ID of the Customer owning the address.
+	 * 
+	 * @var int
+	 */
+	protected $_customerId;
+	
 	/**
 	 * Customer's first street address line.
 	 *
@@ -40,13 +49,22 @@ class Address extends AbstractBase
 	 */
 	protected $_zipCode;
 	
-	public function __construct($addrLine1, $addrLine2="", $city, $state, $zipCode)
+	protected function __construct(array $data)
 	{
-		$this->_addrLine1 = $addrLine1;
-		$this->_addrLine2 = $addrLine2;
-		$this->_city = $city;
-		$this->_state = $state;
-		$this->_zipCode = $zipCode;
+		if (empty($data['id']) || empty($data['customer_id']) || empty($data['addr_line1']) || empty($data['city']) || empty($data['state']) || empty($data['zip_code']))
+		{	
+			throw new InvalidArgumentException('A required field is empty.');
+		}
+		$this->_id = $data['id'];
+		$this->_customerId = $data['customer_id'];
+		$this->_addrLine1 = $data['addr_line1'];
+		if (!empty($data['addr_line2']))
+		{
+			$this->_addrLine2 = $data['addr_line2'];
+		}
+		$this->_city = $data['city'];
+		$this->_state = $data['state'];
+		$this->_zipCode = $data['zip_code'];
 	}
 	
 	/**

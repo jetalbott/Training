@@ -44,15 +44,151 @@ Class DatabaseConnection {
 	
 	}
 	
-	public static function select($tableName,array $where=array())
+	/**
+	 * Retrieves information from the MySQL Database for display/manipulation by the PHP application.
+	 * 
+	 * @return array
+	 */
+	public static function select($tableName,array $conditions=array())
 	{
 		$query = 'SELECT * FROM `' . $tableName . '`';
 		
-		if (count($where) > 0)
+		if (count($conditions) > 0)
 		{
-			$query .= " WHERE " . implode(" AND ",$where); 
+			
+			$conditionStr = array();
+				
+			foreach ($conditions as $field => $value)
+			{
+				$conditionStr[$field] = '`' . $field . '` = :' . $field;
+			}
+			
+			$query .= ' WHERE ' . implode(' AND ', $conditionStr);
 		}
 		
-		return static::_getConnection()->query($query); 	
+		$statement = static::_getConnection()->prepare($query); 	
+	
+		$statement->execute($conditions);
+
+		$rows = array();
+		
+		while ($row = $statement->fetch()) $rows[] = $row;
+		
+		return $rows;
+
+	}
+	
+	/**
+	 * Changes stored information in the MySQL database.
+	 * 
+	 * @return array
+	 */
+	public static function update($tableName,array $fields,array $conditions=array())
+	{
+		if (empty($fields))
+		{
+			throw new InvalidArgumentException('No fields to update.');
+		}	
+			
+		$query = 'UPDATE `' . $tableName . '` SET ';
+		
+		$values = array();
+		
+		$fieldStr = array();
+		
+		foreach ($fields as $field => $value)
+		{
+			$fieldStr[$field] = '`' . $field . '` = ?';
+			$values[] = $value;
+		}
+		
+		$query .= implode(', ', $fieldStr);
+		
+		if (count($conditions) > 0)
+		{
+			
+			$conditionStr = array();
+				
+			foreach ($conditions as $field => $value)
+			{
+				$conditionStr[$field] = '`' . $field . '` = ?';
+				$values[] = $value;
+			}
+			
+			$query .= ' WHERE ' . implode(' AND ', $conditionStr);
+		}
+		
+		$statement = static::_getConnection()->prepare($query);	
+	
+		$result = $statement->execute($values);
+		
+		die(var_export($result, TRUE));
+	}
+	
+	/**
+	 * Deletes information from the MySQL database.
+	 * 
+	 * @return array
+	 */
+	public static function delete($tableName,array $conditions)
+	{
+		if (empty($conditions))	
+		{
+			throw new InvalidArgumentException('No rows to delete.');
+		}	
+			
+		$query = 'DELETE FROM `' . $tableName . '`';
+			
+		$conditionStr = array();
+				
+		foreach ($conditions as $field => $value)
+		{
+			$conditionStr[$field] = '`' . $field . '` = :' . $field;
+		}
+			
+		$query .= ' WHERE ' . implode(' AND ', $conditionStr);
+		
+		$statement = static::_getConnection()->prepare($query); 	
+	
+		$result = $statement->execute($conditions);
+
+		die(var_export($result, TRUE));
+	}
+	
+	/**
+	 * Adds new information in the MySQL database.
+	 * 
+	 * @return int
+	 */
+	public static function insert($tableName,array $conditions)
+	{
+		if (empty($conditions))
+		{
+			throw new InvalidArgumentException('No data to insert.');
+		}	
+			
+		$query = 'INSERT INTO `' . $tableName . '` ';
+		
+		$columnStr = array();
+		$valueStr = array();
+		
+		foreach ($conditions as $field => $value)
+		{
+			$columnStr[$field] = '`' . $field . '`';
+			$valueStr[$field] = ':' . $field;
+		}
+		
+		$query .= '(' . implode(', ', $columnStr) . ')';
+		$query .= ' VALUES (' . implode(', ', $valueStr) . ')';
+		
+		$statement = static::_getConnection()->prepare($query);	
+	
+		$result = $statement->execute($conditions);
+		
+		$id = static::_getConnection()->lastInsertId('id');
+		
+		return $id;
+		
+		die(var_export($result, TRUE));
 	}
 }
