@@ -1,7 +1,5 @@
 <?php
 
-require 'DatabaseConnection.php';
-
 /**
  * Contains base properties used across all objects
  */
