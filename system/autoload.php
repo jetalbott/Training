@@ -30,5 +30,20 @@ function autoloadInterface($objectName)
     return FALSE;
 }
 
+function autoloadTest($objectName)
+{
+    $relativeName = str_replace(NS, DS, $objectName);
+    $absoluteName = DIR_TESTS . DS . $relativeName . '.php';
+
+    if (file_exists($absoluteName))
+    {
+        require $absoluteName;
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 spl_autoload_register('autoloadClass', TRUE);
 spl_autoload_register('autoloadInterface', TRUE);

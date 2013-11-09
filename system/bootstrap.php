@@ -9,6 +9,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('DIR_ROOT', dirname(__DIR__));
 define('DIR_CLASSES', DIR_ROOT . DS . 'classes');
 define('DIR_INTERFACES', DIR_ROOT . DS . 'interfaces');
+define('DIR_TESTS', DIR_ROOT . DS . 'tests');
 define('NS', '\\'); // Namespace Separator
 
-include(__DIR__ . DS . 'autoload.php');
+include 'autoload.php';
