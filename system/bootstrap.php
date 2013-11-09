@@ -13,3 +13,4 @@ define('DIR_TESTS', DIR_ROOT . DS . 'tests');
 define('NS', '\\'); // Namespace Separator
 
 include 'autoload.php';
+include 'config.php';
