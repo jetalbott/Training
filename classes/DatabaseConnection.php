@@ -21,14 +21,29 @@ Class DatabaseConnection {
 		    $dsn      = $config[Config::DATA_STORE_DSN];
 		    $username = $config[Config::DATA_STORE_USERNAME];
 		    $password = $config[Config::DATA_STORE_PASSWORD];
+		    $options  = $config[Config::DATA_STORE_OPTIONS];
 
 			static::$_connection = new PDO($dsn, $username, $password);
-			static::$_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			static::_setConnectionOptions($options);
 		}
 		catch (PDOException $e)
 		{
 			echo "Connection failed: " . $e->getMessage();
 		}
+	}
+
+	/**
+	 * Sets any options in the config file to the connection variable.
+	 *
+	 * @param array $options
+	 */
+	protected static function _setConnectionOptions(array $options)
+	{
+	    foreach ($options as $key => $value)
+	    {
+	        static::$_connection->setAttribute($key, $value);
+	    }
 	}
 
 	/**

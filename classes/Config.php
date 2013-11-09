@@ -8,6 +8,7 @@ class Config
     const DATA_STORE_DSN      = 'DATA_STORE_DSN';
     const DATA_STORE_USERNAME = 'DATA_STORE_USERNAME';
     const DATA_STORE_PASSWORD = 'DATA_STORE_PASSWORD';
+    const DATA_STORE_OPTIONS  = 'DATA_STORE_OPTIONS';
 
     public static function setConfig(array $config)
     {
