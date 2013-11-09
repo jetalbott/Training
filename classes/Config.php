@@ -9,6 +9,7 @@ class Config
     const DATA_STORE_USERNAME = 'DATA_STORE_USERNAME';
     const DATA_STORE_PASSWORD = 'DATA_STORE_PASSWORD';
     const DATA_STORE_OPTIONS  = 'DATA_STORE_OPTIONS';
+    const FIXTURE_FILENAME    = 'FIXTURE_FILENAME';
 
     public static function setConfig(array $config)
     {

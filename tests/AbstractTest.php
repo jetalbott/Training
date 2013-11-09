@@ -1,6 +1,6 @@
 <?php
 
-Class AbstractTest extends PHPUnit_Extensions_Database_TestCase
+Abstract Class AbstractTest extends PHPUnit_Extensions_Database_TestCase
 {
     /**
      * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
@@ -21,6 +21,8 @@ Class AbstractTest extends PHPUnit_Extensions_Database_TestCase
      */
     public function getDataSet()
     {
-        return $this->createMySQLXMLDataSet('/path/to/file.xml');
+        $filename = Config::get(Config::FIXTURE_FILENAME);
+
+        return $this->createMySQLXMLDataSet(DIR_FIXTURES . DS . $filename);
     }
 }

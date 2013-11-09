@@ -12,6 +12,7 @@ $_CONFIG = array
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ),
     ),
+    Config::FIXTURE_FILENAME => 'shopping_cart_test.xml',
 );
 
 Config::setConfig($_CONFIG);

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <database name="shopping_cart_test">
+        <table_data name="address">
+        </table_data>
+        <table_data name="category">
+        </table_data>
+        <table_data name="customer">
+            <row>
+                <field name="id">1</field>
+                <field name="email">talbott.je@gmail.com</field>
+                <field name="password">mudkip</field>
+                <field name="first_name">John</field>
+                <field name="last_name">Talbott</field>
+            </row>
+            <row>
+                <field name="id">3</field>
+                <field name="email">rvandell@bloomboard.com</field>
+                <field name="password">seaking</field>
+                <field name="first_name">Bob</field>
+                <field name="last_name">Van Dell</field>
+            </row>
+            <row>
+                <field name="id">5</field>
+                <field name="email">bvandell@bloomboard.com</field>
+                <field name="password">seaking</field>
+                <field name="first_name">Bob</field>
+                <field name="last_name">Van Dell</field>
+            </row>
+            <row>
+                <field name="id">6</field>
+                <field name="email">ravandell@bloomboard.com</field>
+                <field name="password">seaking</field>
+                <field name="first_name">Rachel</field>
+                <field name="last_name">Van Dell</field>
+            </row>
+            <row>
+                <field name="id">8</field>
+                <field name="email">jsuter@gmail.com</field>
+                <field name="password">chespin</field>
+                <field name="first_name">Jordan</field>
+                <field name="last_name">Suter</field>
+            </row>
+        </table_data>
+        <table_data name="item">
+        </table_data>
+        <table_data name="order">
+        </table_data>
+        <table_data name="product">
+        </table_data>
+    </database>
+</mysqldump>
