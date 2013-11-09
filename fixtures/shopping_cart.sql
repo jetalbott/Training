@@ -140,7 +140,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `customer_id` int(10) unsigned NOT NULL,
-  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_date` datetime DEFAULT NULL,
   `modified_date` datetime DEFAULT NULL,
   `received_date` datetime DEFAULT NULL,
